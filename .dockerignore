@@ -4,7 +4,8 @@
 __pycache__
 *.pyc
 .pytest_cache
-data
+data/jobs_sample.parquet
+data/*.pdf
 tests
 .env
 README.md

@@ -22,6 +22,14 @@ CV:
 {cv}
 """
 
+RESUME_MARCHE = """
+### Principaux constats
+- `python` et `sql` dominent largement toutes les offres data.
+- Le **cloud** (`aws`, `azure`, `gcp`) et le **Big Data** (`spark`) sont tres presents.
+- Le **BI** (`tableau`, `power bi`, `excel`) reste central pour les Data Analysts.
+- Salaire moyen le plus eleve : **Machine Learning Engineer**, devant les profils seniors.
+"""
+
 
 def extraire_texte(chemin):
     if str(chemin).lower().endswith(".pdf"):
@@ -80,21 +88,32 @@ def classer(offre, fichiers, backend):
     return [[i + 1] + r for i, r in enumerate(resultats)]
 
 
-demo = gr.Interface(
-    fn=classer,
-    inputs=[
-        gr.Textbox(label="Offre d'emploi", lines=6, value=OFFRE_DEFAUT),
-        gr.File(label="CV (PDF/TXT)", file_count="multiple", file_types=[".pdf", ".txt"]),
-        gr.Dropdown(["groq", "ollama"], value="groq", label="Moteur"),
-    ],
-    outputs=gr.Dataframe(
-        headers=["Rang", "Fichier", "Score", "Competences presentes",
-                 "Competences manquantes", "Justification"],
-        wrap=True,
-    ),
-    title="Tri de CV selon une offre",
-    description="Depose une offre et plusieurs CV. L'IA classe ; l'humain decide.",
-)
+with gr.Blocks(title="JobMatch AI") as demo:
+    gr.Markdown("# JobMatch AI\nPreselection de CV + analyse du marche de l'emploi.")
+
+    with gr.Tab("Matching CV / offre"):
+        gr.Markdown("Depose une offre et des CV. L'IA classe ; l'humain decide.")
+        gr.Interface(
+            fn=classer,
+            inputs=[
+                gr.Textbox(label="Offre d'emploi", lines=6, value=OFFRE_DEFAUT),
+                gr.File(label="CV (PDF/TXT)", file_count="multiple", file_types=[".pdf", ".txt"]),
+                gr.Dropdown(["groq", "ollama"], value="groq", label="Moteur"),
+            ],
+            outputs=gr.Dataframe(
+                headers=["Rang", "Fichier", "Score", "Competences presentes",
+                         "Competences manquantes", "Justification"],
+                wrap=True,
+            ),
+            flagging_mode="never",
+        )
+
+    with gr.Tab("Marche de l'emploi"):
+        gr.Markdown("Analyse d'un echantillon de 5 000 offres (dataset data_jobs).")
+        gr.Image("data/figures/top_skills.png", label="Top competences demandees")
+        gr.Image("data/figures/skills_by_role.png", label="Competences par metier")
+        gr.Image("data/figures/salary_by_role.png", label="Salaire moyen par metier")
+        gr.Markdown(RESUME_MARCHE)
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7863)))
