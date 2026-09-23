@@ -1,0 +1,7 @@
+pdfplumber
+fpdf2
+ollama
+python-dotenv
+groq
+pytest
+gradio

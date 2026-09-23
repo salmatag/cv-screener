@@ -1,0 +1,24 @@
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Tests / Jupyter
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets (cle API)
+.env
+*.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
