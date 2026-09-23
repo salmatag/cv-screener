@@ -4,7 +4,7 @@ Assistant de **présélection de CV** : à partir d'une offre d'emploi et de plu
 le système **classe les candidats par pertinence**, avec un **score**, les **compétences
 présentes / manquantes** et une **justification**. Inclut une **analyse du marché de l'emploi**.
 
-**Demo en ligne :** `https://cv-screener-abc123.onrender.com` (à remplacer par ton URL Render)
+**Demo en ligne :** https://cv-screener-gef4.onrender.com
 
 ## Fonctionnalités
 
