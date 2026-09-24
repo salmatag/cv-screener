@@ -1,3 +1,5 @@
+![CI](https://github.com/salmatag/cv-screener/actions/workflows/ci.yml/badge.svg)
+
 # JobMatch AI
 
 Assistant de **présélection de CV** : à partir d'une offre d'emploi et de plusieurs CV,
